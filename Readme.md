@@ -3,6 +3,9 @@ The project impliments a windows application where two different type of users c
 Admin user can register a student, add result to the result table
 Student user can view the result.
 
+![image](https://github.com/priyteshprasad/StudentResultManagement/assets/61977852/c7b75022-a4b2-44bb-b007-ce9e9a11a508)
+
+
 # Admin:
   Allow uer to
   1. Add Student
