@@ -245,6 +245,12 @@ public class addResult extends javax.swing.JFrame {
         String dbms = jTextField5.getText();
         String os = jTextField6.getText();
         
+        if(rollno.length() == 0 || physics.length() == 0 || maths.length() == 0 || em.length() == 0 || dbms.length() == 0 || os.length() == 0){
+            // open up a dialog for invalid data
+               JOptionPane.showMessageDialog(null, "Some value is missing. Please Check");
+               return;
+        }
+        
         try{
             Class.forName("com.mysql.cj.jdbc.Driver"); //driver class of sql database to say we want to make a connection with you
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/srms", "root", "password"); //actually make the connection
@@ -254,10 +260,23 @@ public class addResult extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select * from student where rollno = '"+rollno+"'");
             // rs is a object that point to the 0th row, 
             if (rs.next()){
-                st.executeUpdate("insert into result(rollno, physics, maths, em, dbms, os) values('"+rollno+"', '"+physics+"', '"+maths+"', '"+em+"','"+dbms+"', '"+os+"' )");
-                JOptionPane.showMessageDialog(null, "Marks saved successfully");
-                setVisible(false);
-                new addResult().setVisible(true);
+                //check if there is already result
+                ResultSet alreadyPresent = st.executeQuery("select * from result where result.rollno='"+rollno+"'");
+                if(alreadyPresent.next()){
+                    st.executeUpdate("UPDATE result SET physics='"+physics+"', maths='"+maths+"', em='"+em+"',dbms='"+dbms+"',os= '"+os+"' WHERE rollno='"+rollno+"'");
+                    JOptionPane.showMessageDialog(null, "Marks updated successfully");
+                    setVisible(false);
+                    new addResult().setVisible(true);
+                }
+                else{
+                    //result not present
+                    st.executeUpdate("insert into result(rollno, physics, maths, em, dbms, os) values('"+rollno+"', '"+physics+"', '"+maths+"', '"+em+"','"+dbms+"', '"+os+"' )");
+                    JOptionPane.showMessageDialog(null, "Marks saved successfully");
+                    setVisible(false);
+                    new addResult().setVisible(true);
+                }
+                
+                
             }else{
                 // open up a dialog for invalid data
                 JOptionPane.showMessageDialog(null, "This rollno is not registered");

@@ -1,0 +1,103 @@
+Microsoft Windows [Version 10.0.19045.2965]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ADMIN>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root p
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql>  create database srms;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use srms;
+Database changed
+mysql> create table student(rollno varchar(15)primary key, course varchar(15), branchName varchar(15),  name varchar(20), gender varchar(15), fathername varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student
+    -> desc student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc student' at line 2
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | varchar(15) | NO   | PRI | NULL    |       |
+| course     | varchar(15) | YES  |     | NULL    |       |
+| branchName | varchar(15) | YES  |     | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| gender     | varchar(15) | YES  |     | NULL    |       |
+| fathername | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student;
++--------+---------+------------+----------+--------+------------+
+| rollno | course  | branchName | name     | gender | fathername |
++--------+---------+------------+----------+--------+------------+
+| 1234   | B. Tech | IEEE       | Abhishek | Male   | Thakur     |
++--------+---------+------------+----------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> create table result(rollno varchar(15)primary key, physics varchar(15), maths varchar(15), em varchar(15), dbms varchar(15), os varchar(15));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc result;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rollno  | varchar(15) | NO   | PRI | NULL    |       |
+| physics | varchar(15) | YES  |     | NULL    |       |
+| maths   | varchar(15) | YES  |     | NULL    |       |
+| em      | varchar(15) | YES  |     | NULL    |       |
+| dbms    | varchar(15) | YES  |     | NULL    |       |
+| os      | varchar(15) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from result;
++--------+---------+-------+------+------+------+
+| rollno | physics | maths | em   | dbms | os   |
++--------+---------+-------+------+------+------+
+| 1234   | 90      | 90    | 90   | 90   | 90   |
++--------+---------+-------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student inner join result where student.rollno=1234 and result.rollno=1234
+    -> ;
++--------+---------+------------+----------+--------+------------+--------+---------+-------+------+------+------+
+| rollno | course  | branchName | name     | gender | fathername | rollno | physics | maths | em   | dbms | os   |
++--------+---------+------------+----------+--------+------------+--------+---------+-------+------+------+------+
+| 1234   | B. Tech | IEEE       | Abhishek | Male   | Thakur     | 1234   | 90      | 90    | 90   | 90   | 90   |
++--------+---------+------------+----------+--------+------------+--------+---------+-------+------+------+------+
+1 row in set (0.03 sec)
+
+mysql>
+

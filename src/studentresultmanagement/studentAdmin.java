@@ -110,10 +110,10 @@ public class studentAdmin extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/srms", "root", "password");
             Statement st=con.createStatement();
-            ResultSet rs = st.executeQuery("select * from student");
+            ResultSet rs = st.executeQuery("select * from result where rollno='"+rollno+"'");
             
             // wether the roll no is present in both the tables or not
-            //condition 1: roll no present in result table, definately it will also be in students table
+            //condition : rollno present in result table, definately it will also be in students table
             if(rs.next()){
                 // we need to transfer the rool no to studentIndex() using parameter
                 setVisible(false);
@@ -121,7 +121,7 @@ public class studentAdmin extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Incorrect Roll no");
             }
-            //condition 2: 
+            
             
            
         }catch(Exception e){

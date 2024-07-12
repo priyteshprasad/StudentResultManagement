@@ -195,7 +195,7 @@ public class result extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/srms", "root", "password");
             Statement st=con.createStatement();
-            ResultSet rs = st.executeQuery("select * from result");
+            ResultSet rs = st.executeQuery("select *, (physics + maths + em + dbms + os) as Total from result");
             
             // allow us to set the model of the table
             // rs2xml.jar is required to use DbUtils

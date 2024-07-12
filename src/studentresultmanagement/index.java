@@ -12,6 +12,7 @@ public class index extends javax.swing.JFrame {
 
     /**
      * Creates new form index
+     * 
      */
     public index() {
         initComponents();
